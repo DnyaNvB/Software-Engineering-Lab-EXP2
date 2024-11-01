@@ -2,6 +2,7 @@ package edu.sharif.selab.services;
 
 import edu.sharif.selab.models.EmailMessage;
 import edu.sharif.selab.models.SmsMessage;
+import edu.sharif.selab.models.TelegramMessage;
 
 import java.util.regex.Pattern;
 
@@ -10,7 +11,10 @@ public class EmailMessageService implements MessageService{
     public void sendSmsMessage(SmsMessage smsMessage) {
         //Empty Body
     }
-
+    @Override
+    public void sendTelegramMessage(TelegramMessage telegramMessage){
+        //Empty Body!
+    }
     @Override
     public void sendEmailMessage(EmailMessage emailMessage) {
         if(validateEmailAddress(emailMessage.getSourceEmailAddress()) && validateEmailAddress(emailMessage.getTargetEmailAddress())){
