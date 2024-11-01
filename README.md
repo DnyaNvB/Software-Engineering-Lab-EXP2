@@ -214,24 +214,24 @@
 <td width="284"><strong>راه حل پیشنهادی</strong></td>
 </tr>
 <tr>
-<td width="168">&nbsp;</td>
-<td width="246">&nbsp;</td>
-<td width="284">&nbsp;</td>
+<td width="168">Open-Close Principle (OCP)</td>
+<td width="246">هر بار که نوع جدیدی از پیام اضافه می‌شود، لازم است کلاس Main تغییر کند تا سرویس جدید را فراخوانی کند.</td>
+<td width="284">باید از الگوی طراحی Factory استفاده کنیم تا با توجه به نوع پیام، سرویس مناسب به صورت خودکار انتخاب شود تا بتوانیم به کلاس Main بدون نیاز به تغییر، سرویس‌های جدیدی اضافه کنیم.</td>
 </tr>
 <tr>
-<td width="168">&nbsp;</td>
-<td width="246">&nbsp;</td>
-<td width="284">&nbsp;</td>
+<td width="168">Liskov Substitution Principle (LSP)</td>
+<td width="246">متدهای خالی (مانند sendSmsMessage و sendEmailMessage در TelegramMessageService) نشان می‌دهد که پیاده‌سازی‌ها نمی‌توانند به درستی جایگزین یکدیگر شوند.</td>
+<td width="284">به جای اینکه از یک رابط کلی که همه توابع را در خود دارد استفاده کنیم، برای هر نوع پیام یک رابط خاص تعریف کنیم تا هر سرویس فقط توابع مورد نیاز خود را پیاده‌سازی کند تا هر سرویس مستقل و به درستی جایگزین باشد و رابطه‌ی as a به طور کامل برقرار باشد.</td>
 </tr>
 <tr>
-<td width="168">&nbsp;</td>
-<td width="246">&nbsp;</td>
-<td width="284">&nbsp;</td>
+<td width="168">Interface Segregation Principle (ISP)</td>
+<td width="246">رابط عمومی MessageService سرویس‌ها را مجبور به پیاده‌سازی متدهایی می‌کند که به آن‌ها نیازی ندارند.</td>
+<td width="284">به جای اینکه یک رابط بزرگ و عمومی استفاده کنیم، از رابط‌های کوچک‌تر و تخصصی‌تر برای هر نوع پیام مانند SmsService`، `EmailService و TelegramService استفاده کنیم تا با این‌کار هر سرویس فقط توابع مورد نیاز خود را پیاده‌سازی می‌کند.</td>
 </tr>
 <tr>
-<td width="168">&nbsp;</td>
-<td width="246">&nbsp;</td>
-<td width="284">&nbsp;</td>
+<td width="168">Dependency Inversion Principle (DIP)</td>
+<td width="246">کلاس Main به پیاده‌سازی‌های خاص هر سرویس وابسته است و برای افزودن سرویس جدید نیاز به تغییر مستقیم در این کلاس دارد.</td>
+<td width="284">به جای ایجاد مستقیم سرویس‌ها در `Main`، از Dependency Injection یا Service Locator استفاده کنیم تا با این‌کار بدون تغییر در کد، سرویس‌های جدید را بتوانیم به Main اضافه کنیم.</td>
 </tr>
 </tbody>
 </table>
