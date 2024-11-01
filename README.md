@@ -50,18 +50,9 @@
 <table dir='rtl'>
 <tbody>
 <tr>
-<td rowspan="2" width="240">اصل 1<br>Single Responsibility</td>
+<td rowspan="2" width="240">اصل 2<br>Open-Close Principle (OCP)</td>
 <td width="95"><strong>موارد تحقق</strong></td>
 <td width="454">&nbsp;</td>
-</tr>
-<tr>
-<td><strong>موارد نقض</strong></td>
-<td>&nbsp;</td>
-</tr>
-<tr>
-<td rowspan="2">اصل 2<br>Open-Close Principle (OCP)</td>
-<td><strong>موارد تحقق</strong></td>
-<td>&nbsp;</td>
 </tr>
 <tr>
 <td><strong>موارد نقض</strong></td>
