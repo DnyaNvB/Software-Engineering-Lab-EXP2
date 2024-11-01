@@ -36,7 +36,7 @@ public class Main {
     }
 
     private static void displayMenu() {
-        System.out.println("Select the type of message to send:");
+        System.out.println("Please choose the number corresponding to the type of message you want to send:");
         for (Map.Entry<Integer, MessageType> entry : messageTypeMap.entrySet()) {
             int option = entry.getKey();
             MessageType messageType = entry.getValue();
