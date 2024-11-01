@@ -2,6 +2,7 @@ package edu.sharif.selab.services;
 
 import edu.sharif.selab.models.EmailMessage;
 import edu.sharif.selab.models.SmsMessage;
+import edu.sharif.selab.models.TelegramMessage;
 
 public class SmsMessageService implements MessageService{
     @Override
@@ -12,7 +13,10 @@ public class SmsMessageService implements MessageService{
             throw new IllegalArgumentException("Phone Number is Not Correct!");
         }
     }
-
+    @Override
+    public void sendTelegramMessage(TelegramMessage telegramMessage){
+        //Empty Body!
+    }
     @Override
     public void sendEmailMessage(EmailMessage emailMessage) {
         //Empty Body!
