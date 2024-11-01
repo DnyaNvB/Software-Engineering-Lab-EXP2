@@ -1,9 +1,12 @@
 import edu.sharif.selab.models.EmailMessage;
 import edu.sharif.selab.models.Message;
 import edu.sharif.selab.models.SmsMessage;
+import edu.sharif.selab.models.TelegramMessage;
 import edu.sharif.selab.services.EmailMessageService;
 import edu.sharif.selab.services.MessageService;
 import edu.sharif.selab.services.SmsMessageService;
+import edu.sharif.selab.services.TelegramMessageService;
+
 
 import java.util.Scanner;
 
@@ -94,9 +97,10 @@ public class Main {
             }else if(message instanceof EmailMessage){
                 messageService = new EmailMessageService();
                 messageService.sendEmailMessage((EmailMessage) message);
-            }else if(message instanceof TelegramMessage){
-                messageService = new TelegramMessageService();
-                messageService.sendTelegramMessage((TelegramMessage) message);
+            }else if (message instanceof TelegramMessage) {
+                    messageService = new TelegramMessageService();
+                    messageService.sendTelegramMessage((TelegramMessage) message);
+                }
 
         }while (true);
     }
