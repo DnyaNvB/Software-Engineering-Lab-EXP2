@@ -21,7 +21,6 @@ public class Main {
             String source;
             String target;
             String content;
-            String id;
 
             System.out.println("In order to send Sms message enter 1");
             System.out.println("In order to send Email message enter 2");
