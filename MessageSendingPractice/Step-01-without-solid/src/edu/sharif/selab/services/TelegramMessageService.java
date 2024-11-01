@@ -17,24 +17,26 @@ public class TelegramMessageService implements MessageService {
 
     @Override
     public void sendTelegramMessage(TelegramMessage telegramMessage) {
-        boolean validMessage;
-        
-        if (telegramMessage.getSourceId() != null && telegramMessage.getTargetId() != null) {
-            validMessage = validateId(telegramMessage.getSourceId()) && validateId(telegramMessage.getTargetId());
-        } else if (telegramMessage.getSourcePhoneNumber() != null && telegramMessage.getTargetPhoneNumber() != null) {
-            validMessage = validatePhoneNumber(telegramMessage.getSourcePhoneNumber()) && validatePhoneNumber(telegramMessage.getTargetPhoneNumber());
-        } else {
-            validMessage = false;
-        }
-
-        if (validMessage) {
+        if (verifySourceAndTarget(telegramMessage)) {
             if (telegramMessage.getSourceId() != null && telegramMessage.getTargetId() != null) {
-                System.out.println("Sending a Telegram message from ID: " + telegramMessage.getSourceId() + " to ID: " + telegramMessage.getTargetId() + " with content: " + telegramMessage.getContent());
+                System.out.println("Sending a Telegram message from ID: " + telegramMessage.getSourceId() +
+                        " to ID: " + telegramMessage.getTargetId() + " with content: " + telegramMessage.getContent());
             } else {
-                System.out.println("Sending a Telegram message from phone: " + telegramMessage.getSourcePhoneNumber() + " to phone: " + telegramMessage.getTargetPhoneNumber() + " with content: " + telegramMessage.getContent());
+                System.out.println("Sending a Telegram message from phone: " + telegramMessage.getSourcePhoneNumber() +
+                        " to phone: " + telegramMessage.getTargetPhoneNumber() + " with content: " + telegramMessage.getContent());
             }
         } else {
             throw new IllegalArgumentException("Source or Target information is Not Correct!");
+        }
+    }
+
+    private boolean verifySourceAndTarget(TelegramMessage telegramMessage) {
+        if (telegramMessage.getSourceId() != null && telegramMessage.getTargetId() != null) {
+            return validateId(telegramMessage.getSourceId()) && validateId(telegramMessage.getTargetId());
+        } else if (telegramMessage.getSourcePhoneNumber() != null && telegramMessage.getTargetPhoneNumber() != null) {
+            return validatePhoneNumber(telegramMessage.getSourcePhoneNumber()) && validatePhoneNumber(telegramMessage.getTargetPhoneNumber());
+        } else {
+            return false;
         }
     }
 
