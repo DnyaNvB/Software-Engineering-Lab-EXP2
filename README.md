@@ -5,6 +5,8 @@
    1. ساخت کلاس جدید
    2. افزودن تابع جدید به کلاس یا واسط (برای توابع جدید صرفاً تغییر را اعلام کنید)
    3. هر خطوط پیاپی‌ای که در تابع main و برای افزودن یک قابلیت جدید اضافه می‌کنید. به عنوان مثال، اگر سه خط به منظور تشخیص نوع پیام اضافه می‌کنید، آن سه خط را در قالب یک تغییر اعلام کنید (البته جزئیات آن را در ستون «شرحی کوتاه از تغییر» توضیح دهید).
+
+
 <table dir='rtl'>
 <tbody>
 <tr>
@@ -122,33 +124,54 @@
 <tr>
 <td width="64">۱۶</td>
 <td width="198">TelegramMessageService</td>
+<td width="141">تعریف تابع verifySourceAndTarget</td>
+<td width="292">ایجاد متدی برای بررسی صحیح بودن اطلاعات مبدا و مقصد</td>
+</tr>
+
+<tr>
+<td width="64">۱۷</td>
+<td width="198">TelegramMessageService</td>
 <td width="141">تعریف تابع validatePhoneNumber</td>
 <td width="292">ایجاد متدی برای بررسی صحت شماره تلفن‌ها (باید ۱۱ رقم و فقط شامل اعداد باشد)</td>
 </tr>
 
 <tr>
-<td width="64">۱۷</td>
+<td width="64">۱۸</td>
 <td width="198">TelegramMessageService</td>
 <td width="141">تعریف تابع validateId</td>
 <td width="292">ایجاد متدی برای بررسی صحت ID (باید حداقل ۵ کاراکتر و فقط شامل حروف و اعداد باشد)</td>
 </tr>
 
 <tr>
-<td width="64">۱۸</td>
+<td width="64">۱۹</td>
+<td width="198">TelegramMessageService</td>
+<td width="141">اضافه کردن تابع sendEmailMessage</td>
+<td width="292">افزودن تابع sendEmailMessage با بدنه خالی به کلاس TelegramMessageService برای سازگاری با واسط</td>
+</tr>
+
+<tr>
+<td width="64">۲۰</td>
+<td width="198">TelegramMessageService</td>
+<td width="141">اضافه کردن تابع sendSmsMessage</td>
+<td width="292">افزودن تابع sendSmsMessage با بدنه خالی به کلاس TelegramMessageService برای سازگاری با واسط</td>
+</tr>
+
+<tr>
+<td width="64">۲۱</td>
 <td width="198">MessageService</td>
 <td width="141">افزودن تابع جدید sendTelegramMessage</td>
 <td width="292">افزودن تابع جدید به واسط MessageService برای ارسال پیام‌های تلگرامی</td>
 </tr>
 
 <tr>
-<td width="64">۱۹</td>
+<td width="64">۲۲</td>
 <td width="198">EmailMessageService</td>
 <td width="141">اضافه کردن تابع sendTelegramMessage</td>
 <td width="292">افزودن تابع sendTelegramMessage با بدنه خالی به کلاس EmailMessageService برای سازگاری با واسط</td>
 </tr>
 
 <tr>
-<td width="64">۲۰</td>
+<td width="64">۲۳</td>
 <td width="198">SmsMessageService</td>
 <td width="141">اضافه کردن تابع sendTelegramMessage</td>
 <td width="292">افزودن تابع sendTelegramMessage با بدنه خالی به کلاس SmsMessageService برای سازگاری با واسط</td>
@@ -156,7 +179,7 @@
 </tbody>
 </table>
 
-مجموع تعداد تغییرات: ۲۰
+مجموع تعداد تغییرات: ۲۳
 
 ### گام ۳: تحلیل و وارسی برنامه از منظر تحقق و یا عدم تحقق اصول SOLID
 
