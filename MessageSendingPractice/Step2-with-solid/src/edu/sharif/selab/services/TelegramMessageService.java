@@ -1,24 +1,11 @@
 package edu.sharif.selab.services;
-
-import edu.sharif.selab.models.EmailMessage;
-import edu.sharif.selab.models.SmsMessage;
 import edu.sharif.selab.models.TelegramMessage;
 
-public class TelegramMessageService implements MessageService {
-    @Override
-    public void sendSmsMessage(SmsMessage smsMessage) {
-        // Empty Body!
-    }
-
-    @Override
-    public void sendEmailMessage(EmailMessage emailMessage) {
-        // Empty Body!
-    }
-
+public class TelegramMessageService implements TelegramService {
     @Override
     public void sendTelegramMessage(TelegramMessage telegramMessage) {
         boolean validMessage;
-        
+
         if (telegramMessage.getSourceId() != null && telegramMessage.getTargetId() != null) {
             validMessage = validateId(telegramMessage.getSourceId()) && validateId(telegramMessage.getTargetId());
         } else if (telegramMessage.getSourcePhoneNumber() != null && telegramMessage.getTargetPhoneNumber() != null) {
@@ -29,9 +16,13 @@ public class TelegramMessageService implements MessageService {
 
         if (validMessage) {
             if (telegramMessage.getSourceId() != null && telegramMessage.getTargetId() != null) {
-                System.out.println("Sending a Telegram message from ID: " + telegramMessage.getSourceId() + " to ID: " + telegramMessage.getTargetId() + " with content: " + telegramMessage.getContent());
+                System.out.println("Sending Telegram message from ID: " + telegramMessage.getSourceId() +
+                        " to ID: " + telegramMessage.getTargetId() +
+                        " with content: " + telegramMessage.getContent());
             } else {
-                System.out.println("Sending a Telegram message from phone: " + telegramMessage.getSourcePhoneNumber() + " to phone: " + telegramMessage.getTargetPhoneNumber() + " with content: " + telegramMessage.getContent());
+                System.out.println("Sending Telegram message from phone: " + telegramMessage.getSourcePhoneNumber() +
+                        " to phone: " + telegramMessage.getTargetPhoneNumber() +
+                        " with content: " + telegramMessage.getContent());
             }
         } else {
             throw new IllegalArgumentException("Source or Target information is Not Correct!");
@@ -39,17 +30,7 @@ public class TelegramMessageService implements MessageService {
     }
 
     private boolean validatePhoneNumber(String phoneNumber) {
-        if (phoneNumber.length() != 11) {
-            return false;
-        }
-
-        for (char digit : phoneNumber.toCharArray()) {
-            if (!Character.isDigit(digit)) {
-                return false;
-            }
-        }
-
-        return true;
+        return phoneNumber.length() == 11 && phoneNumber.chars().allMatch(Character::isDigit);
     }
 
     private boolean validateId(String id) {
