@@ -1,107 +1,90 @@
-import edu.sharif.selab.models.EmailMessage;
-import edu.sharif.selab.models.Message;
-import edu.sharif.selab.models.SmsMessage;
-import edu.sharif.selab.models.TelegramMessage;
-import edu.sharif.selab.services.EmailMessageService;
-import edu.sharif.selab.services.MessageService;
-import edu.sharif.selab.services.SmsMessageService;
-import edu.sharif.selab.services.TelegramMessageService;
+import edu.sharif.selab.models.*;
+import edu.sharif.selab.services.*;
 
-
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Main {
     public static final Scanner scanner = new Scanner(System.in);
+    private static final Map<Integer, MessageType> messageTypeMap = new HashMap<>();
+
+    static {
+        messageTypeMap.put(1, MessageType.SMS);
+        messageTypeMap.put(2, MessageType.EMAIL);
+        messageTypeMap.put(3, MessageType.TELEGRAM);
+    }
+
     public static void main(String[] args) {
         System.out.println("Hello and Welcome to SE Lab Messenger.");
-        int userAnswer=0;
-        do{
-            Message message = null;
-            MessageService messageService;
-            String source;
-            String target;
-            String content;
-            String id;
+        while (true) {
+            displayMenu();
+            int choice = scanner.nextInt();
 
-            System.out.println("In order to send Sms message enter 1");
-            System.out.println("In order to send Email message enter 2");
-            System.out.println("In order to send Telegram message enter 3");
-            System.out.println("In order to Exit, Enter 0");
-
-            userAnswer= scanner.nextInt();
-
-            if(userAnswer==0){
+            if (choice == 0) {
                 break;
             }
 
-            switch (userAnswer){
-                case 1:
-                    SmsMessage smsMessage = new SmsMessage();
-                    System.out.print("Enter source phone : ");
-                    source = scanner.next();
-                    smsMessage.setSourcePhoneNumber(source);
-                    System.out.print("Enter target phone : ");
-                    target = scanner.next();
-                    smsMessage.setTargetPhoneNumber(target);
-                    System.out.println("Write Your Message : ");
-                    content = scanner.next(".*$");
-                    smsMessage.setContent(content);
-                    message = smsMessage;
-                    break;
-                case 2:
-                    EmailMessage emailMessage = new EmailMessage();
-                    System.out.print("Enter source phone : ");
-                    source = scanner.next();
-                    emailMessage.setSourceEmailAddress(source);
-                    System.out.print("Enter target phone : ");
-                    target = scanner.next();
-                    emailMessage.setTargetEmailAddress(target);
-                    System.out.println("Write Your Message : ");
-                    content = scanner.next();
-                    emailMessage.setContent(content);
-                    message = emailMessage;
-                    break;
-
-                case 3:
-                    TelegramMessage telegramMessage = new TelegramMessage();
-                    System.out.println("Choose input option: 1 for IDs, 2 for phone numbers:");
-                    int telegramChoice = scanner.nextInt();
-                    if (telegramChoice == 1) {
-                        System.out.print("Enter source ID: ");
-                        source = scanner.next();
-                        telegramMessage.setSourceId(source);
-                        System.out.print("Enter target ID: ");
-                        target = scanner.next();
-                        telegramMessage.setTargetId(target);
-                    } else if (telegramChoice == 2) {
-                        System.out.print("Enter source phone: ");
-                        source = scanner.next();
-                        telegramMessage.setSourcePhoneNumber(source);
-                        System.out.print("Enter target phone: ");
-                        target = scanner.next();
-                        telegramMessage.setTargetPhoneNumber(target);
-                    } else {
-                        System.out.println("Invalid choice. You should choose 1 or 2!");
-                        continue;
-                    }
-                    System.out.println("Write Your Message : ");
-                    content = scanner.next();
-                    telegramMessage.setContent(content);
-                    message = telegramMessage;
-                    break;
+            MessageType messageType = messageTypeMap.get(choice);
+            if (messageType == null) {
+                System.out.println("Invalid choice.");
+                continue;
             }
 
-            if(message instanceof SmsMessage){
-                messageService = new SmsMessageService();
-                messageService.sendSmsMessage((SmsMessage) message);
-            }else if(message instanceof EmailMessage){
-                messageService = new EmailMessageService();
-                messageService.sendEmailMessage((EmailMessage) message);
-            }else if (message instanceof TelegramMessage) {
-                    messageService = new TelegramMessageService();
-                    messageService.sendTelegramMessage((TelegramMessage) message);
-                }
+            handleMessage(messageType);
+        }
+    }
 
-        }while (true);
+    private static void displayMenu() {
+        System.out.println("Select the type of message to send:");
+        for (Map.Entry<Integer, MessageType> entry : messageTypeMap.entrySet()) {
+            int option = entry.getKey();
+            MessageType messageType = entry.getValue();
+            System.out.println(option + ". " + messageType.name() + " - " + messageType.getDescription());
+        }
+        System.out.println("0. Exit");
+    }
+
+    private static void handleMessage(MessageType messageType) {
+        Object service = MessageServiceFactory.createMessageService(messageType);
+
+        switch (messageType) {
+            case SMS -> sendSms((SmsService) service);
+            case EMAIL -> sendEmail((EmailService) service);
+            case TELEGRAM -> sendTelegram((TelegramService) service);
+        }
+    }
+
+    private static void sendSms(SmsService service) {
+        SmsMessage smsMessage = new SmsMessage();
+        System.out.print("Enter source phone: ");
+        smsMessage.setSourcePhoneNumber(scanner.next());
+        System.out.print("Enter target phone: ");
+        smsMessage.setTargetPhoneNumber(scanner.next());
+        System.out.print("Enter message content: ");
+        smsMessage.setContent(scanner.next());
+        service.sendSmsMessage(smsMessage);
+    }
+
+    private static void sendEmail(EmailService service) {
+        EmailMessage emailMessage = new EmailMessage();
+        System.out.print("Enter source email: ");
+        emailMessage.setSourceEmailAddress(scanner.next());
+        System.out.print("Enter target email: ");
+        emailMessage.setTargetEmailAddress(scanner.next());
+        System.out.print("Enter message content: ");
+        emailMessage.setContent(scanner.next());
+        service.sendEmailMessage(emailMessage);
+    }
+
+    private static void sendTelegram(TelegramService service) {
+        TelegramMessage telegramMessage = new TelegramMessage();
+        System.out.print("Enter source ID or phone: ");
+        telegramMessage.setSourceId(scanner.next());
+        System.out.print("Enter target ID or phone: ");
+        telegramMessage.setTargetId(scanner.next());
+        System.out.print("Enter message content: ");
+        telegramMessage.setContent(scanner.next());
+        service.sendTelegramMessage(telegramMessage);
     }
 }
