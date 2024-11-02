@@ -267,7 +267,22 @@
 
 پرسش اول:
 
+1, 2, 3, 4, 18, 19, 20, 21, 22, 23
+ ده تغییر با شماره‌های بالا که از روی شماره‌های جدول گام دو است، از کد حذف می‌شد و تغییرات زیر به جای این ده خط کد اضافه می‌شد (با فرض وجود کلاس‌های MessageType, MessageServiceFactory, SmsService, EmailService در کدی که از اول ریفکتور بوده):
+۱- در کلاس MessageType یک enum تلگرام اضافه می‌کردیم.
+۲- در کلاس MessageServiceFactory کیس تلگرام اضافه می‌شد.
+۳- یک کلاس اینترفیس TelegramService ایجاد می‌کردیم.
+۴- متد sendTelegramMessage را در کلاس اینترفیس TelegramService ایجاد می‌کردیم.
+۵- کلاس TelegramMessageService را ایجاد می‌کردیم.
+۶- متد sendTelegramMessage را در کلاس TelegramMessageService پیاده‌سازی می‌کردیم.
+۷- متد verifySourceAndTarget را در کلاس TelegramMessageService پیاده‌سازی می‌کردیم.
+۸- متد validatePhoneNumber را در کلاس TelegramMessageService پیاده‌سازی می‌کردیم. 
+۹- متد validateId را در کلاس TelegramMessageService پیاده‌سازی می‌کردیم. 
+۱۰- در کلاس Main، در بدنه‌ی استاتیک، messageTypeMap تلگرام را اضافه می‌کردیم.
+۱۱- در کلاس Main، تابع private static void sendTelegram را اضافه می‌کردیم.
 
+
+بنابراین در مجموع ۱۱ + ۱۳ تغییر یعنی ۲۴ را باید انجام می‌دادیم.
 
 پرسش دوم:
 
