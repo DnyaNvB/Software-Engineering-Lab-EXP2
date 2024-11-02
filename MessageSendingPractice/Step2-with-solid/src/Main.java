@@ -62,7 +62,7 @@ public class Main {
         System.out.print("Enter target phone: ");
         smsMessage.setTargetPhoneNumber(scanner.next());
         System.out.print("Enter message content: ");
-        smsMessage.setContent(scanner.next());
+        smsMessage.setContent(scanner.next(".*$"));
         service.sendSmsMessage(smsMessage);
     }
 
@@ -73,7 +73,7 @@ public class Main {
         System.out.print("Enter target email: ");
         emailMessage.setTargetEmailAddress(scanner.next());
         System.out.print("Enter message content: ");
-        emailMessage.setContent(scanner.next());
+        emailMessage.setContent(scanner.next(".*$"));
         service.sendEmailMessage(emailMessage);
     }
 
@@ -84,7 +84,7 @@ public class Main {
         System.out.print("Enter target ID or phone: ");
         telegramMessage.setTargetId(scanner.next());
         System.out.print("Enter message content: ");
-        telegramMessage.setContent(scanner.next());
+        telegramMessage.setContent(scanner.next(".*$"));
         service.sendTelegramMessage(telegramMessage);
     }
 }
